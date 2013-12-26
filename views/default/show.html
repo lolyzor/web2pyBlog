@@ -1,0 +1,26 @@
+{{extend 'layout.html'}}
+<h1>Viewing post</h1>
+<h3>
+    {{=post.title}}
+</h3>
+<p>
+    {{=post.body}}
+</p>
+<p>
+    <h4>
+        Comments
+    </h4>
+    <hr\>
+    {{if count < 1:}}
+    {{=H4('no comments yet')}}
+    {{pass}}
+    {{for comment in comments:}}
+        {{=DIV(comment.comment,_class='comment')}}
+    {{pass}}
+</p>
+<hr\>
+
+<hr\>
+<p>
+    Write a comment ? {{=A('click here',_href=URL('default/newComment',request.args(0)))}}
+</p>

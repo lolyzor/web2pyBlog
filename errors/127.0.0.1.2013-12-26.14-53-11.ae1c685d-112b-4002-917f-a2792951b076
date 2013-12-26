@@ -1,0 +1,21 @@
+(dp1
+S'output'
+p2
+S"<type 'exceptions.NameError'> global name 'NE' is not defined"
+p3
+sS'layer'
+p4
+S'/home/abdu/Downloads/web2py/applications/myblog/controllers/default.py'
+p5
+sS'code'
+p6
+S"def index():\n    #posts = db(db.post).selectAll()\n    posts = db().select(db.post.id,db.post.title,orderby=db.post.title)\n    return dict(posts=posts)\n\ndef newpost():\n     form = SQLFORM(db.post).process(next=URL('index'))\n     return dict(form=form)\n\n\ndef new():\n     form = SQLFORM(db.post).process(next=URL('index'))\n     return dict(form=form)\n\ndef my_form_processing(form):\n    print 1\n\ndef newComment():\n    post = db.post(request.args(0,cast=int)) or redirect(URL('index'))\n    form = SQLFORM.factory(Field('comment','text',requires=NE)).process()\n    #form = SQLFORM(db.comment).process(next=URL('default/show',request.args(0)))\n    #form.vars.post_id = request.args(0,cast=int)\n    if form.accepted:\n        #post_id = db.post.insert(name=form.vars.name,forum=forum.id)\n        db.comment.insert(post_id=request.args(0,cast=int),comment=form.vars.comment)\n        redirect(URL('default/show',request.args(0)))\n    return locals()\n\ndef show():\n    this_post = db.post(request.args(0,cast=int)) or redirect(URL('index'))\n    comments = db(db.comment.post_id==request.args(0,cast=int)).select()\n    count = db(db.comment.post_id==request.args(0,cast=int)).count()\n    return dict(post=this_post,comments=comments,count=count)\n\n@auth.requires_login()\ndef editpost():\n    #form = db(db.post,session.args[0])\n    this_post = db.post(request.args(0,cast=int)) or redirect(URL('index'))\n    form = SQLFORM(db.post, this_post).process(next = URL('show',args=request.args))\n    return dict(form=form)\n\ndef user():\n     return dict(form=auth())\n\nresponse._vars=response._caller(newComment)\n"
+p7
+sS'snapshot'
+p8
+(dp9
+sS'traceback'
+p10
+S'Traceback (most recent call last):\n  File "/home/abdu/Downloads/web2py/gluon/restricted.py", line 217, in restricted\n    exec ccode in environment\n  File "/home/abdu/Downloads/web2py/applications/myblog/controllers/default.py", line 45, in <module>\n  File "/home/abdu/Downloads/web2py/gluon/globals.py", line 372, in <lambda>\n    self._caller = lambda f: f()\n  File "/home/abdu/Downloads/web2py/applications/myblog/controllers/default.py", line 20, in newComment\n    form = SQLFORM.factory(Field(\'comment\',\'text\',requires=NE)).process()\nNameError: global name \'NE\' is not defined\n'
+p11
+s.

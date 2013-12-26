@@ -1,0 +1,29 @@
+def index():
+    #posts = db(db.post).selectAll()
+    posts = db().select(db.post.id,db.post.title,orderby=db.post.title)
+    return dict(posts=posts)
+
+def newpost():
+     form = SQLFORM(db.post).process(next=URL('index'))
+     return dict(form=form)
+
+
+def new():
+     form = SQLFORM(db.post).process(next=URL('index'))
+     return dict(form=form)
+
+def show():
+    this_post = db.post(request.args(0,cast=int)) or redirect(URL('index'))
+    comments = db(db.comment(request.args(0,cast=int))).select()
+    count = db(db.comment(request.args(0,cast=int))).count()
+    return dict(post=this_post,comments=comments)
+
+@auth.requires_login()
+def editpost():
+    form = db(db.post,session.args[0])
+    this_post = db.post(request.args(0,cast=int)) or redirect(URL('index'))
+    form = SQLFORM(db.post, this_post).process(next = URL('show',args=request.args))
+    return dict(form=form)
+
+def user():
+     return dict(form=auth())

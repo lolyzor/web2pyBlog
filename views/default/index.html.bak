@@ -1,0 +1,14 @@
+{{extend 'layout.html'}}
+<h1>
+    Current posts
+</h1>
+<ul>
+    {{for post in posts:}}
+    {{=LI(A(post.title, _href=URL('show', args=page.id)))}}
+    {{pass}}
+</ul>
+{{if len(posts) == 0:}}
+     <h4>
+         No current posts
+    </h4>
+{{pass}}

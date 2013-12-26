@@ -1,0 +1,7 @@
+{{extend 'layout.html'}}
+<h1>Post new comment</h1>
+<div>
+    {{=form}}
+    <hr/>
+    {{=form.vars.post_id}}
+</div>

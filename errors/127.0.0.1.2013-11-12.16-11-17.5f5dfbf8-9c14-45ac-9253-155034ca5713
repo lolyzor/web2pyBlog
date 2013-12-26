@@ -1,0 +1,21 @@
+(dp1
+S'output'
+p2
+S"<type 'exceptions.AttributeError'> 'DAL' object has no attribute 'posts'"
+p3
+sS'layer'
+p4
+S'/home/abdu/Downloads/web2py/applications/myblog/controllers/default.py'
+p5
+sS'code'
+p6
+S"def index():\n    posts = db(db.posts).selectAll()\n    posts = db().select(db.posts.id,db.posts.title,orderby=db.posts.title)\n    return dict(posts=posts)\n\ndef newpost():\n    form = db(db.posts)\n    return dict(form=form)\n\n@auth.requires_login()\ndef editpost():\n    form = db(db.posts,session.args[0])\n    this_post = db.post(request.args(0,cast=int)) or redirect(URL('index'))\n    form = SQLFORM(db.page, this_page).process(next = URL('show',args=request.args))\n    return dict(form=form)\n\ndef user():\n     return dict(form=auth())\n\nresponse._vars=response._caller(index)\n"
+p7
+sS'snapshot'
+p8
+(dp9
+sS'traceback'
+p10
+S'Traceback (most recent call last):\n  File "/home/abdu/Downloads/web2py/gluon/restricted.py", line 217, in restricted\n    exec ccode in environment\n  File "/home/abdu/Downloads/web2py/applications/myblog/controllers/default.py", line 20, in <module>\n  File "/home/abdu/Downloads/web2py/gluon/globals.py", line 372, in <lambda>\n    self._caller = lambda f: f()\n  File "/home/abdu/Downloads/web2py/applications/myblog/controllers/default.py", line 2, in index\n    posts = db(db.posts).selectAll()\n  File "/home/abdu/Downloads/web2py/gluon/dal.py", line 8041, in __getattr__\n    return ogetattr(self, key)\nAttributeError: \'DAL\' object has no attribute \'posts\'\n'
+p11
+s.
