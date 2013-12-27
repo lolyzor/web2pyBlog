@@ -1,4 +1,4 @@
-db = DAL('sqlite://storage.sqlite')
+db = DAL('sqlite://storage.sqlite',fake_migrate_all=True)
 
 from gluon.tools import *
 auth = Auth(db)
@@ -8,6 +8,8 @@ crud = Crud(db)
 db.define_table('post',
     Field('title'),
     Field('body', 'text'),
+    Field('upvotes', 'integer', default=0),
+    Field('downvotes', 'integer',default=0),
     Field('created_on', 'datetime', default=request.now),
     Field('created_by', 'reference auth_user', default=auth.user_id),
     format='%(title)s')
@@ -31,11 +33,13 @@ db.define_table('comment',
 
 db.post.title.requires = IS_NOT_IN_DB(db, 'post.title')
 db.post.body.requires = IS_NOT_EMPTY()
-db.post.created_by.readable = db.post.created_by.writable = False
-db.post.created_on.readable = db.post.created_on.writable = False
+db.post.created_by.writable = False
+db.post.upvotes.readable = db.post.upvotes.writable = False
+db.post.downvotes.readable = db.post.downvotes.writable = False
+db.post.created_on.writable = False
+db.post.created_by.writable = db.post.created_by.writable = False
 
 db.comment.comment.requires = IS_NOT_EMPTY()
-db.comment.comment = db.comment.comment.writable = False
 db.comment.created_by.readable = db.comment.created_by.writable = False
 db.comment.created_on.readable = db.comment.created_on.writable = False
 

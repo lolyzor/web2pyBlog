@@ -1,26 +1,31 @@
 {{extend 'layout.html'}}
-<h1>Viewing post</h1>
-<h3>
-    {{=post.title}}
-</h3>
-<p>
-    {{=post.body}}
-</p>
-<p>
-    <h4>
-        Comments
-    </h4>
-    <hr\>
-    {{if count < 1:}}
-    {{=H4('no comments yet')}}
-    {{pass}}
-    {{for comment in comments:}}
-        {{=DIV(comment.comment,_class='comment')}}
-    {{pass}}
-</p>
-<hr\>
+<div class="span2">
 
-<hr\>
-<p>
-    Write a comment ? {{=A('click here',_href=URL('default/newComment',request.args(0)))}}
-</p>
+</div>
+<div class="span10">
+    <div class="well">
+        <h3>
+            {{=this_post.title}}
+        </h3>
+        <p>
+            {{=this_post.body}}
+        </p>
+        {{=form}}
+    </div>
+    <h4>
+        Comments  <span class="badge badge-inverse">{{=count}}</span>
+    </h4>
+    <div class="well">
+        {{if count < 1:}}
+        {{=H4('no comments yet')}}
+        {{pass}}
+        {{for comment in comments:}}
+            {{=DIV(comment.comment,_class='comment')}}
+        {{pass}}
+    </div>
+    <div style="well">
+        <p>
+            Write a comment ? {{=A('click here',_href=URL('default/newComment',request.args(0)))}}
+        </p>
+    </div>
+</div>

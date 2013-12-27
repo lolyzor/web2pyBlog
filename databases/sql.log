@@ -81,3 +81,8 @@ CREATE TABLE comment(
     created_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE
 );
 success!
+timestamp: 2013-12-27T10:50:20.955347
+ALTER TABLE post ADD downvotes INTEGER;
+timestamp: 2013-12-27T10:50:21.084789
+ALTER TABLE post ADD upvotes INTEGER;
+success!

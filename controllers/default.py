@@ -1,6 +1,15 @@
 def index():
     #posts = db(db.post).selectAll()
-    posts = db().select(db.post.id,db.post.title,orderby=db.post.title)
+    sortBy = request.args(0)
+    sortKeyWord = ~db.post.created_on
+    if sortBy:
+        if sortBy == 'title':
+            sortKeyWord = db.post.title
+        if sortBy == 'time':
+            sortKeyWord = ~db.post.created_on
+        if sortBy == 'votes':
+            sortKeyWord = ~db.post.upvotes
+    posts = db().select(db.post.ALL,orderby=sortKeyWord)
     return dict(posts=posts)
 
 def newpost():
@@ -30,7 +39,12 @@ def show():
     this_post = db.post(request.args(0,cast=int)) or redirect(URL('index'))
     comments = db(db.comment.post_id==request.args(0,cast=int)).select()
     count = db(db.comment.post_id==request.args(0,cast=int)).count()
-    return dict(post=this_post,comments=comments,count=count)
+    form = SQLFORM.factory(submit_button='vote +1').process()
+    if form.accepted:
+        this_post.update_record(upvotes=this_post.upvotes+1)
+        #print this_post
+        redirect(URL('default/show',request.args(0)))
+    return locals()
 
 @auth.requires_login()
 def editpost():

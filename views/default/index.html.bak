@@ -1,14 +1,30 @@
 {{extend 'layout.html'}}
-<h1>
+<div class="span2">
+
+</div>
+<div class="span10">
+    <div class="">
+        <ul class="nav nav-pills">
+            <li {{if not request.args(0) == 'time':}}{{='class=active'}}{{pass}}>{{=A('Latest',_href=URL('index',args='time'))}}</li>
+            <li {{if request.args(0) == 'votes':}}{{='class=active'}}{{pass}}>{{=A('Top',_href=URL('index',args='votes'))}}</li>
+            <li {{if request.args(0) == 'comments':}}{{='class=active'}}{{pass}}>{{=A('Popularity',_href=URL('index',args='comments'))}}</li>
+        </ul>
+    </div>
+
+<h3>
     Current posts
-</h1>
-<ul>
-    {{for post in posts:}}
-    {{=LI(A(post.title, _href=URL('show', args=page.id)))}}
+</h3>
+<div class="well">
+    <ul>
+        {{for post in posts:}}
+        {{=LI(A(post.title, _href=URL('show', args=post.id)))}}
+        {{pass}}
+    </ul>
+</div>
+
+    {{if len(posts) == 0:}}
+         <h4>
+             No current posts
+        </h4>
     {{pass}}
-</ul>
-{{if len(posts) == 0:}}
-     <h4>
-         No current posts
-    </h4>
-{{pass}}
+</div>
