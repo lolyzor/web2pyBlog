@@ -86,3 +86,17 @@ ALTER TABLE post ADD downvotes INTEGER;
 timestamp: 2013-12-27T10:50:21.084789
 ALTER TABLE post ADD upvotes INTEGER;
 success!
+timestamp: 2013-12-31T11:50:13.331868
+ALTER TABLE post ADD category_id INTEGER REFERENCES category (id) ON DELETE CASCADE;
+faked!
+success!
+timestamp: 2013-12-31T11:50:13.348914
+CREATE TABLE category(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name CHAR(512),
+    description TEXT,
+    followers INTEGER,
+    created_on TIMESTAMP,
+    created_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE
+);
+faked!

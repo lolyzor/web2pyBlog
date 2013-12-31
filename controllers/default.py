@@ -1,3 +1,15 @@
+def categories():
+    sortBy = request.args(0)
+    sortKeyWord = ~db.post.created_on
+    if sortBy:
+        if sortBy == 'title':
+            sortKeyWord = db.post.title
+        if sortBy == 'time':
+            sortKeyWord = ~db.post.created_on
+        if sortBy == 'votes':
+            sortKeyWord = ~db.post.upvotes
+    posts = db().select(db.post.ALL,orderby=sortKeyWord)
+    return locals()
 def index():
     #posts = db(db.post).selectAll()
     sortBy = request.args(0)
@@ -27,6 +39,11 @@ def new():
 def my_form_processing(form):
     print 1
 
+
+@auth.requires_login()
+def newCategory():
+    form = SQLFORM(db.category).process(next=URL('default/show',request.args(0)))
+    return locals()
 
 @auth.requires_login()
 def newComment():
