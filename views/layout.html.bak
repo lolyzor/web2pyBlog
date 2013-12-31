@@ -25,15 +25,32 @@
    </ul>
 </div>
 <div class="container">
-
-
-    {{include}}
-
+    <div class="row">
+        <div class="span10">
+            {{include}}
+        </div>
+        <div class="span2">
+            {{if not auth.user_id:}}
+                <span class="label label-warning">Not logged in? {{=A('login', _href=URL('/user/login'))}}</span>
+            {{pass}}
+            {{if auth.user_id:}}
+                <span class="label label-success">Welcome {{=auth.user.first_name}}</span>
+                <div class="btn-group">
+                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Account<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <!-- dropdown menu links -->
+                    <li><a>Profile</a></li>
+                    <li><a>Messages</a></li>
+                    <li>{{=A('Logout',_href=URL('default/user','logout'))}}</li>
+                </ul>
+                </div>
+            {{pass}}
+        </div>
+    </div>
 </div> <!-- /container -->
     <script src="{{=URL('static','js/jquery.js')}}"></script>
     <script src="{{=URL('static','js/bootstrap.min.js')}}"></script>
     <script src="{{=URL('static','js/web2py_bootstrap.js')}}"></script>
 
 </body>
-    
 </html>

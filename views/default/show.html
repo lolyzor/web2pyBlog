@@ -5,16 +5,39 @@
 <div class="span10">
     <div class="well">
         <h3>
-            {{=this_post.title}}
+            "{{=this_post.title}}" by {{=postBy}}
         </h3>
         <p>
             {{=this_post.body}}
         </p>
-        {{=form}}
+        <div class="row">
+            <div class="span1">
+                <form action="#" id="form1" enctype="multipart/form-data" method="post">
+                    <input type="submit" value="Upvote"/>
+                    <input type="hidden" name="_formname" value="upvote" />
+                </form>
+            </div>
+            <div class="span2">
+                <form action="#" id="form2" enctype="multipart/form-data" method="post">
+                    <input type="submit" value="Downvote"/>
+                    <input type="hidden" name="_formname" value="downvote" />
+                </form>
+            </div>
+        </div>
     </div>
-    <h4>
-        Comments  <span class="badge badge-inverse">{{=count}}</span>
-    </h4>
+    <div class="row">
+        <div class="span2">
+        <h4>
+            Comments  <span class="badge badge-inverse">{{=count}}</span>
+        </h4>
+        </div>
+        <div class="">
+            <h4>
+            Likes <span class="badge badge-success">{{=this_post.upvotes}}</span>
+            </h4>
+       </div>
+    </div>
+
     <div class="well">
         {{if count < 1:}}
         {{=H4('no comments yet')}}

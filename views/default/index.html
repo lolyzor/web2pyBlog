@@ -8,6 +8,7 @@
             <li {{if request.args(0) == 'time' or not request.args(0):}}{{='class=active'}}{{pass}}>{{=A('Latest',_href=URL('index',args='time'))}}</li>
             <li {{if request.args(0) == 'votes':}}{{='class=active'}}{{pass}}>{{=A('Top',_href=URL('index',args='votes'))}}</li>
             <li {{if request.args(0) == 'comments':}}{{='class=active'}}{{pass}}>{{=A('Popularity',_href=URL('index',args='comments'))}}</li>
+            <li {{if request.args(0) == 'comments':}}{{='class=active'}}{{pass}}>{{=A('Popularity',_href=URL('index',args='comments'))}}</li>
         </ul>
     </div>
 

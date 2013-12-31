@@ -1,4 +1,4 @@
-db = DAL('sqlite://storage.sqlite',fake_migrate_all=True)
+db = DAL('sqlite://storage.sqlite',migrate=True,fake_migrate_all=True)
 
 from gluon.tools import *
 auth = Auth(db)
@@ -29,11 +29,10 @@ db.define_table('comment',
     Field('comment', 'text'),
     Field('created_on', 'datetime', default=request.now),
     Field('created_by', 'reference auth_user', default=auth.user_id),
-    format='%(name)s')
+    format='%(comment)s')
 
 db.post.title.requires = IS_NOT_IN_DB(db, 'post.title')
 db.post.body.requires = IS_NOT_EMPTY()
-db.post.created_by.writable = False
 db.post.upvotes.readable = db.post.upvotes.writable = False
 db.post.downvotes.readable = db.post.downvotes.writable = False
 db.post.created_on.writable = False

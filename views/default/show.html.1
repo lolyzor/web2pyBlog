@@ -1,0 +1,36 @@
+{{extend 'layout.html'}}
+<div class="span2">
+
+</div>
+<div class="span10">
+    <div class="well">
+        <h3>
+            "{{=this_post.title}}" by {{=postBy}}
+        </h3>
+        <p>
+            {{=this_post.body}}
+        </p>
+        {{=form}}
+    </div>
+    <div class="span4">
+    <h4>
+        Comments  <span class="badge badge-inverse">{{=count}}</span>
+    </h4>
+    </div>
+    <div class="span4">
+        Likes <span class="badge badge-inverse">{{=likes}}</span>
+    </div>
+    <div class="well">
+        {{if count < 1:}}
+        {{=H4('no comments yet')}}
+        {{pass}}
+        {{for comment in comments:}}
+            {{=DIV(comment.comment,_class='comment')}}
+        {{pass}}
+    </div>
+    <div style="well">
+        <p>
+            Write a comment ? {{=A('click here',_href=URL('default/newComment',request.args(0)))}}
+        </p>
+    </div>
+</div>
